@@ -1,3 +1,3 @@
 function angle = servo_to_rad(q)
 
-angle = pi*(q - 0.5);
+angle = mod(pi*(q - 0.5), 2*pi);

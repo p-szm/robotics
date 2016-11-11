@@ -11,16 +11,16 @@ maxPulse3 = 2050*10^-6;
 % Arm lengths
 l = [0.13, 0.149, 0.149, 0.14]';
 
-q = [0; 0; 0]; % In radians
+q = [0.1; 0.1; 0.1]; % In radians
 
 x_target = endpos(q,l);
 
 figure
-dx = [-0.004; -0.004];
-for i=1:1000
+dx = [-0.03; -0.02];
+for i=1:100
     
     % Move the target
-    if mod(i, 100) == 0
+    if mod(i, 10) == 0
         dx = -dx;
     end
     x_target = x_target + dx;

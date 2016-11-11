@@ -20,15 +20,35 @@ sv3 = servo(s, 'D6', 'MinPulseDuration', minPulse3, 'MaxPulseDuration', maxPulse
 servo = [sv1, sv2, sv3]';
 pause(2)
 
-q = [0; 0; 0]; % In radians
-moveServos(servo, q);
+q = [0.1; 0.1; 0.1]; % In radians
 
-x_target = [0.1; 0.1];
+x_target = endpos(q,l);
 
-for i=1:10
-    q = q + pinv(J(q, l)) * (x_target - endpos(q, l));
+figure
+dx = [-0.03; -0.02];
+for i=1:100
+    
+    % Move the target
+    if mod(i, 10) == 0
+        dx = -dx;
+    end
+    x_target = x_target + dx;
+
+    % IK
+    for j=1:5
+        q = q + pinv(J(q, l)) * (x_target - endpos(q, l));
+    end
+    q = mod(q, 2*pi);
+    
+    moveServos(servo, q);
+
+    % Draw stuff
+    draw_arm(q, l);
+    hold on
+    plot(x_target(1), x_target(2), 'r+')
+    hold off
+    pause(0)
 end
-q = mod(q, 2*pi);
 
 
 
