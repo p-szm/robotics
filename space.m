@@ -13,5 +13,11 @@ for i=0:0.05:1
 end
 
 plot(x,y,'.')
+hold on
+
+k = convhull(x, y, 'simplify', true);
+plot(x(k), y(k), 'r-')
+hold off
+
 xlim([-1,1])
 ylim([-1,1])
