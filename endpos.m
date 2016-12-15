@@ -24,6 +24,8 @@ elseif k == 3
     pos = p0 + p1 + p2;
 elseif k == 4
     pos = p0 + p1 + p2 + p3;
+elseif k == -1
+    pos = [p0, p0+p1, p0+p1+p2, p0+p1+p2+p3]';
 else
     error('endpos:k should be between 0 and 4');
 end
